@@ -6,11 +6,11 @@ import { ProductCard } from '@/components/marketplace/ProductCard';
 import { mockProducts, mockReviews, shippingOptions } from '@/lib/mock-data';
 import { Star, ShoppingCart, Heart, Share2, Truck, Shield, RotateCcw, Check } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, use } from 'react';
 import Link from 'next/link';
 
-export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const product = mockProducts.find(p => p.id === id) || mockProducts[0];
   const productReviews = mockReviews.filter(r => r.productId === product.id);
   const relatedProducts = mockProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
