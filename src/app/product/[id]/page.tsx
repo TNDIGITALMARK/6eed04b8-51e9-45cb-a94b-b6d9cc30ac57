@@ -9,8 +9,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const product = mockProducts.find(p => p.id === params.id) || mockProducts[0];
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const product = mockProducts.find(p => p.id === id) || mockProducts[0];
   const productReviews = mockReviews.filter(r => r.productId === product.id);
   const relatedProducts = mockProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
